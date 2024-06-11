@@ -1,11 +1,15 @@
+import { useAuth0 } from '@auth0/auth0-react';
+
 const Auth = () => {
 
-    const myLogin = () => {
+    const { loginWithRedirect, logout } = useAuth0();
 
+    const myLogin = () => {
+        loginWithRedirect();
     }
 
     const myLogout = () => {
-
+        logout();
     }
 
     return (
