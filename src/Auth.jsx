@@ -1,17 +1,17 @@
 const Auth = () => {
 
-    const login = () => {
+    const myLogin = () => {
 
     }
 
-    const logout = () => {
+    const myLogout = () => {
 
     }
 
     return (
         <div className="container my-2">
-            <button className="btn btn-danger" onClick={logout}>ログアウト</button>
-            <button className="btn btn-primary" onClick={login}>ログイン</button>
+            <button className="btn btn-danger" onClick={myLogout}>ログアウト</button>
+            <button className="btn btn-primary" onClick={myLogin}>ログイン</button>
         </div>
     );
 }
