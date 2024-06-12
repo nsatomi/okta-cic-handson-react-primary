@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const Profile = () => {
 
+    const [idTokenClaims, setIdTokenClaims] = useState({});
     const [errorMsg, setErrorMsg] = useState('');
     const [backendProfile, setBackendProfile] = useState({});
 
@@ -38,15 +39,15 @@ const Profile = () => {
                 <caption className="text-center">Okta CIC で認証されたユーザ情報</caption>
                 <tbody>
                     {Object.keys({}).map(key => {
-                        return (<tr><td>{key}</td><td>{backendProfile[key]}</td></tr>)
+                        return (<tr><td>{key}</td><td>{[][key]}</td></tr>)
                     })}
                 </tbody>
             </table>
             <table className="table table-striped table-bordered align-middle caption-top mb-4">
                 <caption className="text-center">Okta CIC が発行した ID Token</caption>
                 <tbody>
-                    {Object.keys({}).map(key => {
-                        return (<tr><td>{key}</td><td>{backendProfile[key]}</td></tr>)
+                    {Object.keys(idTokenClaims).map(key => {
+                        return (<tr><td>{key}</td><td>{idTokenClaims[key]}</td></tr>)
                     })}
                 </tbody>
             </table>
