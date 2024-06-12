@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Profile = () => {
 
+    const { user } = useAuth0();
     const [idTokenClaims, setIdTokenClaims] = useState({});
     const [errorMsg, setErrorMsg] = useState('');
     const [backendProfile, setBackendProfile] = useState({});
@@ -38,8 +40,8 @@ const Profile = () => {
             <table className="table table-striped table-bordered align-middle caption-top mb-4">
                 <caption className="text-center">Okta CIC で認証されたユーザ情報</caption>
                 <tbody>
-                    {Object.keys({}).map(key => {
-                        return (<tr><td>{key}</td><td>{[][key]}</td></tr>)
+                    {Object.keys(user || {}).map(key => {
+                        return (<tr><td>{key}</td><td>{user[key]}</td></tr>)
                     })}
                 </tbody>
             </table>
