@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Profile = () => {
 
-    const { user } = useAuth0();
+    const { user, isAuthenticated, getIdTokenClaims } = useAuth0();
     const [idTokenClaims, setIdTokenClaims] = useState({});
     const [errorMsg, setErrorMsg] = useState('');
     const [backendProfile, setBackendProfile] = useState({});
@@ -11,12 +11,17 @@ const Profile = () => {
     useEffect(() => {
         const controller = new AbortController();
 
-        getProfileFromBackend(controller.signal);
+        if (isAuthenticated) {
+            getIdTokenClaims().then(claims => setIdTokenClaims({...claims}));
+            getProfileFromBackend(controller.signal);
+        } else {
+            setIdTokenClaims({});
+        }
 
         return () => {
             controller.abort('Profile コンポーネントが破棄されました');
         }
-    }, []);
+    }, [isAuthenticated]);
 
     const getProfileFromBackend = async signal => {
 
@@ -49,7 +54,7 @@ const Profile = () => {
                 <caption className="text-center">Okta CIC が発行した ID Token</caption>
                 <tbody>
                     {Object.keys(idTokenClaims).map(key => {
-                        return (<tr><td>{key}</td><td>{idTokenClaims[key]}</td></tr>)
+                        return (<tr><td>{key}</td><td className="text-break">{idTokenClaims[key]}</td></tr>)
                     })}
                 </tbody>
             </table>
